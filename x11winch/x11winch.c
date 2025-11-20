@@ -981,6 +981,7 @@ int main(int argc, char **argv) {
 
       if (overlay_visible) {
         if (ks == XK_Escape) {
+          animate_shrink();
           hide_overlays();
           reset_filter();
           visible = 0;
