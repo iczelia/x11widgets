@@ -347,8 +347,14 @@ static void get_window_title(Window w, char *buf, size_t bufsz) {
     XFree(prop.value);
     return;
   }
-  XFetchName(dpy, w, &buf);
-  if (!buf[0]) {
+  char * dest;
+  XFetchName(dpy, w, &dest);
+  if (dest) {
+    strncpy(buf, dest, bufsz - 1);
+    buf[bufsz - 1] = '\0';
+    XFree(dest);
+    return;
+  } else {
     snprintf(buf, bufsz, "(untitled)");
   }
 }
